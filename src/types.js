@@ -1,0 +1,27 @@
+module.exports = {
+	// app actions
+	__INIT__: '__INIT__',
+	__MOUNT__: '__MOUNT__',
+	__REMOVE__: '__REMOVE__',
+	__SET_INITIAL_STATE__: '__SET_INITIAL_STATE__',
+	ROUTE: 'ROUTE',
+
+	// temp state actions
+	SET_TEMP_STATE: 'SET_TEMP_STATE',
+
+	// user actions
+	LOGIN_USER: 'LOGIN_USER',
+
+	// editBracket actions
+	RESET_BRACKET_CONFIG: 'RESET_BRACKET_CONFIG',
+	SET_BRACKET_TYPE: 'SET_BRACKET_TYPE',
+	ADD_PARTICIPANT: 'ADD_PARTICIPANT',
+	REMOVE_PARTICIPANT: 'REMOVE_PARTICIPANT',
+	EDIT_PARTICIPANT: 'EDIT_PARTICIPANT',
+
+	// bracket type enum
+	SINGLE_ELIMINATION: 1,
+	DOUBLE_ELIMINATION: 2,
+	ROUND_ROBIN: 3
+
+}

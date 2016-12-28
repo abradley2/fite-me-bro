@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Fite Me Bro</title>
+	<!-- #TEST DEPS -->
+	<link rel='stylesheet' type='text/css' href='./node_modules/mocha/mocha.css' />
+	<script src='./node_modules/mocha/mocha.js'></script>
+	<script src='./node_modules/chai/chai.js'></script>
+	<script src='./node_modules/sinon/pkg/sinon.js'></script>
+	<script>mocha.setup('bdd')</script>
+	<script>
+	window.$env = 'TEST'
+	</script>
+	<!-- #SYSTEMS UNDER TEST -->
+	<link rel='stylesheet' type='text/css' href='./public/font-awesome/css/font-awesome.min.css' />
+	<link rel='stylesheet' type='text/css' href='./public/bootstrap.min.css' />
+	<script src='./public/main.bundle.js'></script>
+	<!-- #TESTS -->
+	<script src='./test/main.js'></script>
+	<!-- #RUN TESTS -->
+	<script>document.addEventListener('DOMContentLoaded', function () {mocha.run()})</script>
+</head>
+<body>
+	<div id='mocha'></div>
+</body>
+</html>

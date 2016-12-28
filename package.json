@@ -1,0 +1,36 @@
+{
+  "name": "functional-mithril",
+  "version": "1.0.0",
+  "description": "Mithril and Ramda",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "browserify src/main.js -o public/main.bundle.js -t [./env --prod]",
+    "dev": "budo src/main.js:main.bundle.js --dir ./public --live -- -t [./env --dev]",
+    "test": "budo src/main.js:public/main.bundle.js --live -- -t [./env --test]"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abradley2/functional-mithril-boilerplate"
+  },
+  "author": "Tony Bradley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abradley2/functional-mithril-boilerplate/issues"
+  },
+  "homepage": "https://github.com/abradley2/functional-mithril-boilerplate",
+  "dependencies": {
+    "aphrodite": "^1.1.0",
+    "localforage": "^1.4.3",
+    "mithril": "1.0.0-rc.6",
+    "ramda": "^0.22.1",
+    "shortid": "^2.2.6"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.6",
+    "through2": "^2.0.3",
+    "watchify": "^3.8.0"
+  }
+}
