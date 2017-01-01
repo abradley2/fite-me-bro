@@ -2,7 +2,6 @@ const m = require('mithril')
 const store = require('./store')
 const types = require('./types')
 const localforage = require('localforage')
-const log = require('./util').log
 
 // Views
 const Home = require('./views/Home')
@@ -61,19 +60,16 @@ function createView (component) {
 			})
 		},
 		view: function () {
-			const mount = m(component.view)
-			if (__env.test || __env.dev) window._vnode = mount
-			return	mount
+			const view = m(component.view)
+			if (__env.test || __env.dev) window.mountedView = view
+			return view
 		}
 	}
 }
 
 if (__env.test) {
 	window.m = m
-	window._vnode = null
-	window.vnode = function () {
-		return window._vnode
-	}
+	window.mountedView = null
 }
 
 if (__env.dev || __env.test) {
