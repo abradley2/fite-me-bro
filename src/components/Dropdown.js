@@ -104,19 +104,18 @@ function getText (vnode) {
 
 exports.Dropdown = {
 	oninit: function (vnode) {
-		// assign listener and handler to state
-		Object.assign(vnode.state, {
-			handleBodyClick: function (attrs) {
-				const tempState = store.getState('tempState')
-				if (tempState[attrs.id + ':isOpen']) {
-					toggleOpen(attrs.id, false)
-					m.redraw()
-				}
-			},
-			onBodyClick: function () {
-				vnode.state.handleBodyClick(vnode.attrs)
+		vnode.state.handleBodyClick = function (attrs) {
+			const tempState = store.getState('tempState')
+			if (tempState[attrs.id + ':isOpen']) {
+				toggleOpen(attrs.id, false)
+				m.redraw()
 			}
-		})
+		}
+
+		vnode.state.onBodyClick = function () {
+			vnode.state.handleBodyClick(vnode.attrs)
+		}
+
 		document.addEventListener('click', vnode.state.onBodyClick)
 	},
 	onremove: function (vnode) {

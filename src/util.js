@@ -1,36 +1,3 @@
-const R = require('ramda')
-
-exports.setupReducer = function setupReducer (slice, handlers) {
-	return {
-		on: function on (actionType, handler) {
-			if (!actionType) throw new TypeError('actionType must be valid')
-			return setupReducer(
-				slice,
-				R.set(
-					R.lensProp(actionType),
-					handler,
-					(handlers || {})
-				)
-			)
-		},
-		create: function create () {
-			return function (action, oldState) {
-				let retVal
-				const setState = R.set(R.lensProp(slice))
-				if (handlers && handlers[action.type]) {
-					retVal = handlers[action.type](action, oldState[slice])
-				} else {
-					retVal = oldState[slice] || {}
-				}
-				if (!retVal) {
-					throw new Error('Reducer for ' + slice + ' returned invalid state')
-				}
-				return setState(retVal)
-			}
-		}
-	}
-}
-
 // fucking with eslint :)
 exports.log = function log () {
 	const _console_ = 'console'

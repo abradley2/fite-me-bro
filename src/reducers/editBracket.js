@@ -1,7 +1,7 @@
 const R = require('ramda')
 const uid = require('shortid').generate
 const types = require('../types')
-const util = require('../util')
+const setupReducer = require('melcore').setupReducer
 
 const initialState = {
 	bracketId: uid(),
@@ -11,9 +11,7 @@ const initialState = {
 	participants: []
 }
 
-const setHasChanges = R.set(R.lensProp('hasChanges'), true)
-
-const reducer = util.setupReducer('editBracket')
+const reducer = setupReducer('editBracket')
 	.on(types.__INIT__, function () {
 		return initialState
 	})
@@ -21,13 +19,10 @@ const reducer = util.setupReducer('editBracket')
 		return initialState
 	})
 	.on(types.SET_BRACKET_TYPE, function (action, oldState) {
-		return R.pipe(
-			R.set(
-				R.lensProp('bracketType'),
-				action.bracketType
-			),
-			setHasChanges
-		)(oldState)
+		return R.merge(oldState, {
+			hasChanges: true,
+			bracketType: action.bracketType
+		})
 	})
 	.on(types.ADD_PARTICIPANT, function (action, oldState) {
 		const participants = R.append(
@@ -35,13 +30,10 @@ const reducer = util.setupReducer('editBracket')
 			oldState.participants
 		)
 
-		return R.pipe(
-			R.set(
-				R.lensProp('participants'),
-				participants
-			),
-			setHasChanges
-		)(oldState)
+		return R.merge(oldState, {
+			hasChanges: true,
+			participants: participants
+		})
 	})
 	.on(types.REMOVE_PARTICIPANT, function (action, oldState) {
 		const participants = R.filter(
@@ -51,31 +43,25 @@ const reducer = util.setupReducer('editBracket')
 			oldState.participants
 		)
 
-		return R.pipe(
-			R.set(
-				R.lensProp('participants'),
-				participants
-			),
-			setHasChanges
-		)(oldState)
+		return R.merge(oldState, {
+			hasChanges: true,
+			participants: participants
+		})
 	})
 	.on(types.EDIT_PARTICIPANT, function (action, oldState) {
-		const particpantIdx = R.findIndex(R.propEq('_id', action.id), oldState.participants)
+		const targetIdx = R.findIndex(R.propEq('_id', action.id), oldState.participants)
 		const editParticpant = R .set(R.lensProp(action.property), action.value)
 
 		const participants = R.adjust(
-			particpantIdx,
+			targetIdx,
 			editParticpant,
 			oldState.participants
 		)
 
-		return R.pipe(
-			R.set(
-				R.lensProp('participants'),
-				participants
-			),
-			setHasChanges
-		)(oldState)
+		return R.merge(oldState, {
+			hasChanges: true,
+			participants: participants
+		})
 	})
 
 module.exports = reducer.create()

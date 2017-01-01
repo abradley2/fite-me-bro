@@ -2,7 +2,7 @@ const m = require('mithril')
 const R = require('ramda')
 const css = require('aphrodite').css
 const StyleSheet = require('aphrodite').StyleSheet
-const util = require('../util')
+const setupReducer = require('melcore').setupReducer
 const types = require('../types')
 const store = require('../store')
 const Link = require('../components/Link').Link
@@ -30,13 +30,11 @@ const styles = StyleSheet.create({
 const SET_SEARCH_VAL = 'HOME.SET_SEARCH_VAL'
 
 /** REDUCER **/
-const initialState = {
-	searchVal: ''
-}
-
-const reducer = util.setupReducer('Home')
+const reducer = setupReducer('Home')
 	.on(types.__MOUNT__, function () {
-		return initialState
+		return {
+			searchVal: ''
+		}
 	})
 	.on(SET_SEARCH_VAL, function (action, oldState) {
 		const newState = R.set(

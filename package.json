@@ -1,12 +1,13 @@
 {
-  "name": "functional-mithril",
+  "name": "mithril-example",
   "version": "1.0.0",
-  "description": "Mithril and Ramda",
+  "description": "Mithril 1.0 Example",
   "main": "src/main.js",
   "scripts": {
     "build": "browserify src/main.js -o public/main.bundle.js -t [./env --prod]",
-    "dev": "budo src/main.js:main.bundle.js --dir ./public --live -- -t [./env --dev]",
-    "test": "budo src/main.js:public/main.bundle.js --live -- -t [./env --test]"
+    "watch": "watchify src/main.js -o public/main.bundle.js -t [./env --dev]",
+    "dev-server": "budo src/main.js:main.bundle.js --dir ./public --live -- -t [./env --dev]",
+    "test-server": "budo src/main.js:public/main.bundle.js --live -- -t [./env --test]"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "dependencies": {
     "aphrodite": "^1.1.0",
     "localforage": "^1.4.3",
+    "melcore": "^2.0.0",
     "mithril": "1.0.0-rc.6",
     "ramda": "^0.22.1",
     "shortid": "^2.2.6"

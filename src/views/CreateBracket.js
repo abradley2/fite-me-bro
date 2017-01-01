@@ -1,8 +1,8 @@
 const m = require('mithril')
 const StyleSheet = require('aphrodite').StyleSheet
+const setupReducer = require('melcore').setupReducer
 const store = require('../store')
 const types = require('../types')
-const util = require('../util')
 const Navigation = require('../components/Navigation').Navigation
 const Toolbar = require('../components/Toolbar').Toolbar
 const Dropdown = require('../components/Dropdown').Dropdown
@@ -20,7 +20,7 @@ const initialState = {
 
 }
 
-const reducer = util.setupReducer('CreateBracket')
+const reducer = setupReducer('CreateBracket')
 	.on(types.__MOUNT__, function () {
 		return initialState
 	})
@@ -43,6 +43,31 @@ function CreateBracket () {
 		m(Navigation),
 		m(Toolbar, {
 			options: [
+				{
+					icon: 'user',
+					label: 'Add Participant',
+					onclick: Function.prototype
+				},
+				{
+					icon: 'user',
+					label: 'Add Participant',
+					onclick: Function.prototype
+				},
+				{
+					icon: 'user',
+					label: 'Add Participant',
+					onclick: Function.prototype
+				},
+				{
+					icon: 'user',
+					label: 'Add Participant',
+					onclick: Function.prototype
+				},
+				{
+					icon: 'user',
+					label: 'Add Participant',
+					onclick: Function.prototype
+				},
 				{
 					icon: 'user',
 					label: 'Add Participant',

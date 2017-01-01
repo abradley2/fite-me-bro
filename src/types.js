@@ -3,11 +3,12 @@ module.exports = {
 	__INIT__: '__INIT__',
 	__MOUNT__: '__MOUNT__',
 	__REMOVE__: '__REMOVE__',
-	__SET_INITIAL_STATE__: '__SET_INITIAL_STATE__',
+	LOAD_LOCAL_STATE: 'LOAD_LOCAL_STATE',
 	ROUTE: 'ROUTE',
 
 	// temp state actions
 	SET_TEMP_STATE: 'SET_TEMP_STATE',
+	CLEAR_TEMP_STATE: 'CLEAR_TEMP_STATE',
 
 	// user actions
 	LOGIN_USER: 'LOGIN_USER',

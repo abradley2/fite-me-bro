@@ -1,49 +1,43 @@
-# Contributing
+# Architecture
 
-### store.getState
-Returns the current atom representing the store's state. One optional argument
-(string), will cause it to return a certain slice of that state rather
-than the entire app state.
+### Build Process
 
-### util.setupReducer
-Very nice convenience function for making a reducer.
-`setupReducer(..)` itself takes one (mandatory) argument, which is the 'slice'
-of the app's state atom that it will be concerned with. It determines which
-oldState is passed to it, and which it must return.
-
-It is important to remember to call `create()` to return the initialized reducer
-after `on` has been called for each action you wish to respond to.
-
-### Built In actions
-`types.__MOUNT__` is called automatically when the view is mounted. Use this
-to set up a a views initial state if it has it's own reducer.
-
-`types.__REMOVE__` is called automatically when a component is removed. Can be used
-for cleanup if a component has created side-effects since mounting.
-
-`types.__INIT__` is called automatically when the application is initialized. Use
-this in application-level reducers to set up initial state.
+Just npm install. The only thing "needed" globally is Budo for the preferred dev
+server.
 
 ### Basic Setup for Views
+
+Views generally have 5 things
+
+`STYLES`, `CONSTANTS`, `REDUCER`, `ACTION` `CREATORS`, `VIEW`
+
+Here is an example of a very basic view divided into all of these:
+
 ```
-/** IMPORTS **/
 const R = require('ramda')
 const m = require('mithril')
-const util = require('../util')
+const StyleSheet = require('aphrodite').StyleSheet
+const css = require('aphrodite').css
+const setupReducer = require('melcore').setupReducer
 const store = require('../store')
 const types = require('../types')
+
+/** STYLES **/
+const styles = StyleSheet.create({
+	somePadding: {
+		padding: '15px'
+	}
+})
 
 /** CONSTANTS **/
 const SET_MESSAGE = 'Home.SET_MESSAGE'
 
 /** REDUCER **/
-const initialState = {
-	message: 'Hello World'
-}
-
-const reducer = util.setupReducer('Home')
+const reducer = setupReducer('Home')
 	.on(types.__MOUNT__, function () {
-		return setHomeState(initialState)
+		return {
+			message: 'Hello World'
+		}
 	})
 	.on(SET_MESSAGE, function (action, oldState) {
 		const newState = R.set(
@@ -58,7 +52,7 @@ const reducer = util.setupReducer('Home')
 exports.reducer = reducer.create()
 
 /** ACTION CREATORS **/
-const setMessage = store.actionCreator(function (newMessage) {
+const setMessage = store.bindActionCreator(function (newMessage) {
 	return {
 		type: SET_MESSAGE,
 		message: newMessage
@@ -70,7 +64,7 @@ function Home () {
 	const appState = store.getState()
 	const state = store.getState('Home')
 
-	return m('div', [
+	return m('div.' + css(somePadding), [
 		m('h3', state.message),
 		m('input', {
 			value: state.message,
@@ -84,10 +78,8 @@ function Home () {
 exports.view = {view: Home}
 ```
 
-### Basic Setup for Reducers
-
-### Basic Setup for Components
-
+A `types.__MOUNT__` action is filed every time a new view is mounted. This is
+used by the view's reducer to set up it's initial state.
 
 ### Using State
 Avoid local component state whenever possible. Almost no state should be too
@@ -98,13 +90,10 @@ panel is expanded or not.
 ### Developing
 Hot module reload isn't needed here. Since all application state is in
 a single immutable atom at any given time, while developing each
-action persists state to local storage. `npm run dev` will spin up Budo,
-and will reload on file changes. You state will be pre-populated from
-local storage, which simulates all the effects of hot module reloading
-without having to explicitly subscribe to anything :0
+action persists state to local storage. `npm run dev-server` will spin up Budo,
+and will reload on file changes.
 
-Of course, sometimes state that is saved isn't corrupted or erroring
-out the application. In which case you need to empty out local storage.
+Of course, sometimes state that is saved is screwing up the application.
 
 In development mode the following commands are available on the window
 object for some nice convenience dev-tool-commands

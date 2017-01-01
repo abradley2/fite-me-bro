@@ -1,6 +1,6 @@
 const m = require('mithril')
 const R = require('ramda')
-const util = require('../util')
+const setupReducer = require('melcore').setupReducer
 const store = require('../store')
 const types = require('../types')
 const Modal = require('../components/Modal').Modal
@@ -16,7 +16,7 @@ const initialState = {
 	password: ''
 }
 
-const reducer = util.setupReducer('Login')
+const reducer = setupReducer('Login')
 	.on(types.__MOUNT__, function () {
 		return initialState
 	})

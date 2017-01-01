@@ -1,8 +1,8 @@
 const m = require('mithril')
 const types = require('../types')
-const util = require('../util')
+const setupReducer = require('melcore').setupReducer
 
-const route = util.setupReducer('route')
+const route = setupReducer('route')
 	.on(types.__INIT__, function () {
 		return m.route.get() || '/'
 	})

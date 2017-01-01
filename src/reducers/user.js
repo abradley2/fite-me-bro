@@ -1,4 +1,4 @@
-const setupReducer = require('../util').setupReducer
+const setupReducer = require('melcore').setupReducer
 const types = require('../types')
 
 const initialState = {

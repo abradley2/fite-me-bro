@@ -8,21 +8,23 @@ const styles = StyleSheet.create({
 	},
 	toolbarWrapper: {
 		position: 'fixed',
-		bottom: '0px',
-		zIndex: 1,
-		color: '#fff',
-		height: '50px'
+		bottom: '0px'
 	},
-	toolbarBody: {},
+	toolbarBody: {
+		height: '70px',
+		overflowX: 'scroll',
+		overflowY: 'hidden',
+		whiteSpace: 'nowrap'
+	},
 	toolbarOption: {
+		color: '#fff',
 		marginRight: '5px',
 		borderRadius: '4px',
 		display: 'inline-block',
 		textAlign: 'center',
 		width: '100px',
-		overflowX: 'scroll',
 		// should be overflowing on the bottom
-		height: '60px',
+		height: '80px',
 		backgroundColor: '#337ab7',
 		border: 'solid thin #337ab7',
 		cursor: 'pointer',
